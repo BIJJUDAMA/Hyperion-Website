@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection {
+  background: var(--brutal-accent);
+  color: #fff;
+}
+
+@layer base {
+  :root {
+    --background: #FFF8EE;
+    --foreground: #1E1133;
+    --primary: #1E1133;
+    --primary-foreground: #FFF8EE;
+    --secondary: #F0E6D6;
+    --secondary-foreground: #1E1133;
+    --muted: #C4B5A0;
+    --muted-foreground: #7A6B5A;
+    --accent: #F5930E;
+    --accent-foreground: #FFFFFF;
+    --border: #1E1133;
+    --input: #1E1133;
+    --ring: #F5930E;
+    --radius: 0rem;
+
+    --brutal-bg: #FFF8EE;
+    --brutal-fg: #1E1133;
+    --brutal-muted: #8A7A68;
+    --brutal-surface: #F0E6D6;
+    --brutal-border: #1E1133;
+    --brutal-accent: #F5930E;
+    --brutal-accent-secondary: #E85A3D;
+    --brutal-glow: #FFB347;
+
+    --gradient-sky: #3D1B6A;
+    --gradient-mid: #8B3FA0;
+    --gradient-warm: #E85A3D;
+    --gradient-amber: #F5930E;
+    --gradient-gold: #FFB347;
+  }
+
+  .dark {
+    --background: #0D0B1A;
+    --foreground: #FFF5E6;
+    --primary: #FFF5E6;
+    --primary-foreground: #0D0B1A;
+    --secondary: #1A1535;
+    --secondary-foreground: #FFF5E6;
+    --muted: #2D2545;
+    --muted-foreground: #9B8FB5;
+    --accent: #F5930E;
+    --accent-foreground: #FFFFFF;
+    --border: rgba(255, 245, 230, 0.15);
+    --input: rgba(255, 245, 230, 0.15);
+    --ring: #F5930E;
+
+    --brutal-bg: #0D0B1A;
+    --brutal-fg: #FFF5E6;
+    --brutal-muted: #9B8FB5;
+    --brutal-surface: #1A1535;
+    --brutal-border: rgba(255, 245, 230, 0.2);
+    --brutal-accent: #F5930E;
+    --brutal-accent-secondary: #E85A3D;
+    --brutal-glow: #FFB347;
+
+    --gradient-sky: #3D1B6A;
+    --gradient-mid: #8B3FA0;
+    --gradient-warm: #E85A3D;
+    --gradient-amber: #F5930E;
+    --gradient-gold: #FFB347;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html.lenis {
+    height: auto;
+  }
+
+  body {
+    background-color: var(--brutal-bg);
+    color: var(--brutal-fg);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--brutal-fg);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    text-transform: uppercase;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-display {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+
+  /* Brutalist Accent Lines */
+  .brutal-line {
+    height: 4px;
+    background: var(--brutal-accent);
+  }
+
+  .brutal-line-thin {
+    height: 1px;
+    background: var(--brutal-border);
+  }
+
+  .brutal-line-accent {
+    height: 3px;
+    background: var(--brutal-accent);
+  }
+
+  /* Gradient Line */
+  .sunset-line {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gradient-sky), var(--gradient-warm), var(--gradient-gold));
+  }
+
+  /* Brutalist Card */
+  .brutal-card {
+    border: 2px solid var(--brutal-border);
+    background: var(--brutal-surface);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .brutal-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px var(--brutal-accent);
+    border-color: var(--brutal-accent);
+  }
+
+  /* Brutalist Button */
+  .brutal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--gradient-warm), var(--gradient-amber));
+    color: #FFFFFF;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 2px solid var(--brutal-accent);
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 3px 3px 0px var(--brutal-accent);
+  }
+
+  .brutal-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--gradient-gold);
+  }
+
+  .brutal-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  /* Brutalist Outlined Button */
+  .brutal-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--brutal-bg);
+    color: var(--brutal-fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 2px solid var(--brutal-border);
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 3px 3px 0px var(--brutal-accent);
+  }
+
+  .brutal-btn-outline:hover {
+    background: var(--brutal-accent);
+    color: #FFFFFF;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--gradient-gold);
+  }
+
+  .brutal-btn-outline:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  /* Section number watermark */
+  .section-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(120px, 20vw, 300px);
+    line-height: 1;
+    color: var(--brutal-fg);
+    opacity: 0.04;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Image Placeholder */
+  .image-placeholder {
+    background: var(--brutal-surface);
+    border: 2px dashed var(--brutal-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brutal-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Background Patterns */
+  .bg-grid-pattern {
+    background-size: 80px 80px;
+    background-image:
+      linear-gradient(to right, var(--brutal-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--brutal-border) 1px, transparent 1px);
+    opacity: 0.3;
+  }
+
+  .bg-dot-pattern {
+    background-size: 28px 28px;
+    background-image: radial-gradient(var(--brutal-fg) 1px, transparent 1px);
+    opacity: 0.04;
+  }
+
+  /* Sunset Gradient Backgrounds */
+  .bg-sunset-hero {
+    background: linear-gradient(180deg,
+        var(--gradient-sky) 0%,
+        var(--gradient-mid) 30%,
+        var(--gradient-warm) 60%,
+        var(--gradient-amber) 85%,
+        var(--gradient-gold) 100%);
+  }
+
+  .bg-sunset-subtle {
+    background: linear-gradient(180deg,
+        var(--brutal-bg) 0%,
+        color-mix(in srgb, var(--gradient-sky) 8%, var(--brutal-bg)) 100%);
+  }
+
+  /* Noise Texture */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Sunset glow accent */
+  .sunset-glow {
+    text-shadow: 0 0 40px rgba(245, 147, 14, 0.3);
+  }
+
+  .sunset-accent-text {
+    background: linear-gradient(135deg, var(--gradient-warm), var(--gradient-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--brutal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gradient-warm), var(--gradient-amber));
+  border: 1px solid var(--brutal-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brutal-accent);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--brutal-accent);
+  color: #FFFFFF;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Logo breathing */
+@keyframes logoBreathing {
+
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+
+  50% {
+    transform: translateY(-18px) translateZ(0);
+  }
+}
+
+.logo-breathing {
+  animation: logoBreathing 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
