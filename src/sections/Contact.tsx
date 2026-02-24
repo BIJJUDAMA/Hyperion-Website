@@ -13,6 +13,9 @@ export default function Contact() {
   const hyperionLogo = isDark ? '/images/hyperion_light.png' : '/images/hyperion_dark.png';
   const sectionRef = useRef<HTMLDivElement>(null);
   const brandingRef = useRef<HTMLDivElement>(null);
+  const hyperionLogoRef = useRef<HTMLImageElement>(null);
+  const atTextRef = useRef<HTMLSpanElement>(null);
+  const amritaLogoRef = useRef<HTMLImageElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -32,14 +35,45 @@ export default function Contact() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      // Branding block
-      gsap.fromTo(brandingRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out',
-          scrollTrigger: { trigger: section, start: 'top 75%' },
-        }
+      // Pod Whoosh Entry — branding elements
+      const whooshTl = gsap.timeline({
+        scrollTrigger: { trigger: section, start: 'top 75%' },
+      });
+
+      // Make the branding container visible first
+      whooshTl.set(brandingRef.current, { opacity: 1 });
+
+      // Hyperion logo whooshes in from the left
+      whooshTl.fromTo(hyperionLogoRef.current,
+        { opacity: 0, x: -120, scale: 0.8, filter: 'blur(8px)' },
+        { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', duration: 0.9, ease: 'power3.out' },
+        0
       );
+
+      // Amrita logo whooshes in from the right
+      whooshTl.fromTo(amritaLogoRef.current,
+        { opacity: 0, x: 120, scale: 0.8, filter: 'blur(8px)' },
+        { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', duration: 0.9, ease: 'power3.out' },
+        0
+      );
+
+      // "at" text fades in between (slightly delayed)
+      whooshTl.fromTo(atTextRef.current,
+        { opacity: 0, scale: 0.5 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' },
+        0.4
+      );
+
+      // After whoosh completes, start floating levitation pulse on Hyperion logo
+      whooshTl.call(() => {
+        gsap.to(hyperionLogoRef.current, {
+          y: -8,
+          duration: 2,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+        });
+      });
 
       // Title
       gsap.fromTo(titleRef.current,
@@ -97,24 +131,29 @@ export default function Contact() {
         <div ref={brandingRef} className="flex flex-col items-center gap-6 mb-16" style={{ opacity: 0 }}>
           <div className="flex items-center gap-4 md:gap-6 justify-center flex-nowrap">
             <img
+              ref={hyperionLogoRef}
               src={hyperionLogo}
               alt="Hyperion"
               loading="lazy"
               decoding="async"
               className="w-[clamp(120px,22vw,260px)] h-auto object-contain shrink-0"
+              style={{ opacity: 0 }}
             />
             <span
+              ref={atTextRef}
               className="font-display text-[clamp(18px,3vw,36px)] tracking-tight shrink-0"
-              style={{ color: 'var(--brutal-muted)' }}
+              style={{ color: 'var(--brutal-muted)', opacity: 0 }}
             >
               at
             </span>
             <img
+              ref={amritaLogoRef}
               src="/images/AmritaLogo.png"
               alt="Amrita Vishwa Vidyapeetham"
               loading="lazy"
               decoding="async"
               className="w-[clamp(140px,28vw,320px)] h-auto object-contain shrink-0"
+              style={{ opacity: 0 }}
             />
           </div>
 
