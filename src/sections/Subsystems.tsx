@@ -33,7 +33,7 @@ function TiltCard({ children, className, style, ...props }: React.HTMLAttributes
 
   return (
     <div ref={ref} className={className} style={{ ...style, transition: 'transform 0.15s ease-out' }}
-      onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} {...props}>
+      {...props} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
       {children}
     </div>
   );

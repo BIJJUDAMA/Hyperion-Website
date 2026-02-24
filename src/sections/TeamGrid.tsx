@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Linkedin } from 'lucide-react';
 import { teamData } from '../data/team';
 import { LineDraw } from '../components/Motion';
 import TextScramble from '../components/TextScramble';
@@ -87,18 +88,29 @@ export default function TeamGrid() {
               }}
             >
               {/* Default state */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0">
-                {/* Large initial */}
-                <div className="absolute top-4 right-4 text-[80px] font-bold leading-none text-brutal-fg opacity-[0.06] select-none pointer-events-none font-display">
-                  {member.name.charAt(0)}
-                </div>
+              <div className="absolute inset-0 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                {/* Photo background */}
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute top-4 right-4 text-[80px] font-bold leading-none text-brutal-fg opacity-[0.06] select-none pointer-events-none font-display">
+                    {member.name.charAt(0)}
+                  </div>
+                )}
 
-                <div className="relative z-10">
+                {/* Name & role overlay at bottom */}
+                <div className="relative z-10 p-5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)' }}>
                   <div className="w-8 h-[3px] bg-brutal-accent mb-3" />
-                  <h3 className="text-base font-bold text-brutal-fg mb-1 font-display uppercase">
+                  <h3 className="text-base font-bold text-white mb-1 font-display uppercase">
                     {member.name}
                   </h3>
-                  <p className="font-mono text-[10px] text-brutal-muted tracking-[0.2em] uppercase">
+                  <p className="font-mono text-[10px] text-white/70 tracking-[0.2em] uppercase">
                     {member.role}
                   </p>
                 </div>
@@ -115,13 +127,18 @@ export default function TeamGrid() {
               >
                 {/* Avatar circle */}
                 <div
-                  className="w-16 h-16 flex items-center justify-center mb-4 text-2xl font-bold font-display"
+                  className="w-16 h-16 flex items-center justify-center mb-4 text-2xl font-bold font-display overflow-hidden"
                   style={{
                     border: '2px solid var(--gradient-gold)',
                     color: 'var(--gradient-gold)',
+                    borderRadius: '50%',
                   }}
                 >
-                  {member.name.charAt(0)}
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                  ) : (
+                    member.name.charAt(0)
+                  )}
                 </div>
 
                 <h3 className="text-sm font-bold text-white mb-1 font-display uppercase">
@@ -135,9 +152,28 @@ export default function TeamGrid() {
                 <div className="w-10 h-[2px] mb-3"
                   style={{ background: 'linear-gradient(90deg, var(--gradient-warm), var(--gradient-gold))' }} />
 
-                <p className="text-[11px] leading-[1.6] text-white/75 font-mono">
+                <p className="text-[11px] leading-[1.6] text-white/75 font-mono mb-3">
                   Team Hyperion
                 </p>
+
+                {member.linkedin && (
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest
+                               text-white/90 hover:text-white transition-all duration-200
+                               hover:scale-110"
+                    style={{
+                      border: '1.5px solid var(--gradient-gold)',
+                      background: 'rgba(255,255,255,0.08)',
+                    }}
+                  >
+                    <Linkedin className="w-3.5 h-3.5" />
+                    LinkedIn
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -146,9 +182,9 @@ export default function TeamGrid() {
         {/* Faculty */}
         <div ref={facultyRef} className="mt-16 pt-8" style={{ borderTop: '3px solid var(--brutal-border)', opacity: 0 }}>
           <h3 className="text-2xl font-bold text-brutal-fg uppercase mb-8 text-center font-display">
-            Faculty Coordinators
+            Faculty Advisors
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {facultyCoordinators.map((member, i) => (
               <div
                 key={i}
@@ -159,16 +195,26 @@ export default function TeamGrid() {
                 }}
               >
                 {/* Default */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0">
-                  <div className="absolute top-4 right-4 text-[80px] font-bold leading-none text-brutal-accent opacity-[0.08] select-none pointer-events-none font-display">
-                    {member.name.charAt(0)}
-                  </div>
-                  <div className="relative z-10">
+                <div className="absolute inset-0 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute top-4 right-4 text-[80px] font-bold leading-none text-brutal-accent opacity-[0.08] select-none pointer-events-none font-display">
+                      {member.name.charAt(0)}
+                    </div>
+                  )}
+                  <div className="relative z-10 p-5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)' }}>
                     <div className="w-8 h-[3px] bg-brutal-accent mb-3" />
-                    <h3 className="text-base font-bold text-brutal-fg mb-1 font-display uppercase">
+                    <h3 className="text-base font-bold text-white mb-1 font-display uppercase">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-[10px] text-brutal-muted tracking-[0.2em] uppercase">
+                    <p className="font-mono text-[10px] text-white/70 tracking-[0.2em] uppercase">
                       {member.role}
                     </p>
                   </div>
@@ -184,13 +230,18 @@ export default function TeamGrid() {
                   }}
                 >
                   <div
-                    className="w-16 h-16 flex items-center justify-center mb-4 text-2xl font-bold font-display"
+                    className="w-16 h-16 flex items-center justify-center mb-4 text-2xl font-bold font-display overflow-hidden"
                     style={{
                       border: '2px solid var(--gradient-gold)',
                       color: 'var(--gradient-gold)',
+                      borderRadius: '50%',
                     }}
                   >
-                    {member.name.charAt(0)}
+                    {member.image ? (
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                    ) : (
+                      member.name.charAt(0)
+                    )}
                   </div>
                   <h3 className="text-sm font-bold text-white mb-1 font-display uppercase">
                     {member.name}

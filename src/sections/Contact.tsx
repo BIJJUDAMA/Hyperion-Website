@@ -93,7 +93,7 @@ export default function Contact() {
       <div className="absolute top-0 left-0 right-0 h-[4px] bg-brutal-accent" />
 
       <div className="relative z-10 max-w-[900px] mx-auto px-6 lg:px-8 text-center">
-        {/* Branding: Hyperion Club of Amrita */}
+        {/* Branding: Hyperion AT Amrita */}
         <div ref={brandingRef} className="flex flex-col items-center gap-6 mb-16" style={{ opacity: 0 }}>
           <div className="flex items-center gap-4 md:gap-6 justify-center flex-nowrap">
             <img
@@ -107,7 +107,7 @@ export default function Contact() {
               className="font-display text-[clamp(18px,3vw,36px)] tracking-tight shrink-0"
               style={{ color: 'var(--brutal-muted)' }}
             >
-              club of
+              at
             </span>
             <img
               src="/images/AmritaLogo.png"
