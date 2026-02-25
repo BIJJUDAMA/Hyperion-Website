@@ -87,8 +87,8 @@ export default function TeamGrid() {
                 opacity: 0,
               }}
             >
-              {/* Default state */}
-              <div className="absolute inset-0 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+              {/* Default state (always visible on mobile, hides on desktop hover) */}
+              <div className="absolute inset-0 flex flex-col justify-end transition-opacity duration-300 sm:group-hover:opacity-0">
                 {/* Photo background */}
                 {member.image ? (
                   <img
@@ -105,20 +105,37 @@ export default function TeamGrid() {
                 )}
 
                 {/* Name & role overlay at bottom */}
-                <div className="relative z-10 p-5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)' }}>
-                  <div className="w-8 h-[3px] bg-brutal-accent mb-3" />
-                  <h3 className="text-base font-bold text-white mb-1 font-display uppercase">
+                <div className="relative z-10 p-4 sm:p-5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)' }}>
+                  <div className="w-8 h-[3px] bg-brutal-accent mb-2 sm:mb-3" />
+                  <h3 className="text-sm sm:text-base font-bold text-white mb-1 font-display uppercase">
                     {member.name}
                   </h3>
-                  <p className="font-mono text-[10px] text-white/70 tracking-[0.2em] uppercase">
+                  <p className="font-mono text-[9px] sm:text-[10px] text-white/70 tracking-[0.2em] uppercase">
                     {member.role}
                   </p>
+                  {/* LinkedIn on mobile (shown directly on card) */}
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sm:hidden inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest
+                                 text-white/90 hover:text-white transition-all duration-200"
+                      style={{
+                        border: '1.5px solid var(--gradient-gold)',
+                        background: 'rgba(255,255,255,0.1)',
+                      }}
+                    >
+                      <Linkedin className="w-3 h-3" />
+                      LinkedIn
+                    </a>
+                  )}
                 </div>
               </div>
 
-              {/* Hover overlay — expanded card */}
+              {/* Hover overlay (desktop only) */}
               <div
-                className="absolute inset-0 flex flex-col items-center justify-center text-center p-5
+                className="absolute inset-0 hidden sm:flex flex-col items-center justify-center text-center p-5
                            opacity-0 group-hover:opacity-100 transition-all duration-300
                            scale-95 group-hover:scale-100"
                 style={{
