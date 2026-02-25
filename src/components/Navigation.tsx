@@ -3,20 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './ThemeProvider';
 import ThemeToggle from './ThemeToggle';
 import { contactData } from '../data/contact';
-import { Linkedin, Instagram, Globe, Mail, Code } from 'lucide-react';
+import { Linkedin, Instagram, Globe, Mail, Code, Copy, Check } from 'lucide-react';
 
 const navItems = [
   { label: 'About', target: 'about' },
-  { label: 'Team', target: 'team' },
   { label: 'Subsystems', target: 'subsystems' },
   { label: 'Events', target: 'events' },
   { label: 'Achievements', target: 'achievements' },
+  { label: 'Team', target: 'team' },
+  { label: 'Gallery', target: 'gallery' },
   { label: 'Contact', target: 'contact' },
 ];
 
 export default function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [devOpen, setDevOpen] = useState(false);
+  const [devCopied, setDevCopied] = useState(false);
   const { isDark } = useTheme();
 
   useEffect(() => {
@@ -26,6 +29,12 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileOpen]);
 
   const scrollToSection = (id: string) => {
     if (id === 'hero') {
@@ -152,6 +161,19 @@ export default function Navigation() {
                         <span className="font-mono text-xs">shankarnitansh@gmail.com</span>
                       </div>
                     </a>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigator.clipboard.writeText('shankarnitansh@gmail.com');
+                        setDevCopied(true);
+                        setTimeout(() => setDevCopied(false), 2000);
+                      }}
+                      className="flex items-center gap-2 font-mono text-[9px] text-brutal-muted hover:text-brutal-accent transition-colors uppercase tracking-wide"
+                    >
+                      {devCopied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+                      {devCopied ? 'Copied!' : 'Copy Email'}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -196,7 +218,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-[49] bg-brutal-bg flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-[49] bg-brutal-bg flex flex-col items-center justify-center gap-6 overflow-y-auto py-24"
           >
             {navItems.map((item, i) => (
               <motion.button
@@ -212,6 +234,84 @@ export default function Navigation() {
                 {item.label}
               </motion.button>
             ))}
+
+            {/* Socials */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: navItems.length * 0.04 + 0.1, duration: 0.2 }}
+              className="flex items-center gap-6 mt-4"
+            >
+              <a href={contactData.socials[0].url} target="_blank" rel="noopener noreferrer" className="text-brutal-muted hover:text-brutal-accent transition-colors">
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a href={contactData.socials[1].url} target="_blank" rel="noopener noreferrer" className="text-brutal-muted hover:text-brutal-accent transition-colors">
+                <Instagram className="w-6 h-6" />
+              </a>
+            </motion.div>
+
+            {/* Dev Credits (expandable) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: navItems.length * 0.04 + 0.2, duration: 0.2 }}
+              className="mt-4"
+            >
+              <button
+                onClick={() => setDevOpen(!devOpen)}
+                className="flex items-center gap-2 font-mono text-[11px] tracking-[0.15em] text-brutal-muted/60 uppercase mx-auto px-5 py-2.5 transition-colors hover:text-brutal-muted"
+                style={{ border: '1px solid var(--brutal-border)', borderColor: devOpen ? 'var(--brutal-accent)' : undefined }}
+              >
+                <Code className="w-4 h-4" />
+                DEV
+              </button>
+              <AnimatePresence>
+                {devOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-3 p-4 text-center" style={{ border: '1px solid var(--brutal-border)' }}>
+                      <p className="font-mono text-[9px] text-brutal-muted/60 uppercase tracking-widest mb-1">Designed & Developed by</p>
+                      <p className="font-mono text-sm text-brutal-fg font-bold mb-3">Nitansh Shankar</p>
+                      <div className="flex flex-col gap-3">
+                        <a href="https://nitansh.netlify.app/" target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors mx-auto">
+                          <Globe className="w-4 h-4 text-brutal-muted/50" />
+                          <div className="flex flex-col text-left">
+                            <span className="font-mono text-[9px] text-brutal-muted/60 uppercase">My Personal Site</span>
+                            <span className="font-mono text-xs">nitansh.netlify.app</span>
+                          </div>
+                        </a>
+                        <a href="mailto:shankarnitansh@gmail.com"
+                          className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors mx-auto">
+                          <Mail className="w-4 h-4 text-brutal-muted/50" />
+                          <div className="flex flex-col text-left">
+                            <span className="font-mono text-[9px] text-brutal-muted/60 uppercase">My Email</span>
+                            <span className="font-mono text-xs">shankarnitansh@gmail.com</span>
+                          </div>
+                        </a>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigator.clipboard.writeText('shankarnitansh@gmail.com');
+                            setDevCopied(true);
+                            setTimeout(() => setDevCopied(false), 2000);
+                          }}
+                          className="flex items-center gap-2 font-mono text-[9px] text-brutal-muted/60 hover:text-brutal-accent transition-colors mx-auto uppercase tracking-wide"
+                        >
+                          {devCopied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+                          {devCopied ? 'Copied!' : 'Copy Email'}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
