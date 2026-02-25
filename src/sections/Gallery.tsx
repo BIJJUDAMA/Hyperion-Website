@@ -70,10 +70,10 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Dynamic Grid */}
+      {/* Dynamic Grid (Single column on mobile, masonry grid on desktop) */}
       <div
         ref={gridRef}
-        className="max-w-[1200px] mx-auto px-6 lg:px-8 grid gap-4 md:gap-5"
+        className="max-w-[1200px] mx-auto px-6 lg:px-8 flex flex-col gap-4 md:grid md:gap-5"
         style={{
           gridTemplateColumns: 'repeat(12, 1fr)',
           gridAutoRows: 'minmax(140px, auto)',
@@ -122,7 +122,7 @@ export default function Gallery() {
                 height={item.height}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-auto md:h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               {/* Hover overlay with caption */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
