@@ -218,7 +218,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-[49] bg-brutal-bg flex flex-col items-center justify-center gap-6 overflow-y-auto py-24"
+            className="fixed inset-0 z-[49] bg-brutal-bg flex flex-col items-center justify-center gap-4 overflow-y-auto pt-36 pb-24"
           >
             {navItems.map((item, i) => (
               <motion.button
@@ -228,7 +228,7 @@ export default function Navigation() {
                 exit={{ opacity: 0, x: 30 }}
                 transition={{ delay: i * 0.04, duration: 0.2 }}
                 onClick={() => scrollToSection(item.target)}
-                className="font-display text-4xl font-bold uppercase tracking-[-0.03em] text-brutal-fg
+                className="font-display text-2xl font-bold uppercase tracking-[-0.03em] text-brutal-fg
                            hover:text-brutal-accent transition-colors"
               >
                 {item.label}
