@@ -5,8 +5,20 @@ export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const followerRef = useRef<HTMLDivElement>(null);
     const [isHovering, setIsHovering] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
+        // Detect touch/mobile devices (no custom cursor for them)
+        const mq = window.matchMedia('(pointer: coarse)');
+        setIsTouchDevice(mq.matches);
+        const handler = (e: MediaQueryListEvent) => setIsTouchDevice(e.matches);
+        mq.addEventListener('change', handler);
+        return () => mq.removeEventListener('change', handler);
+    }, []);
+
+    useEffect(() => {
+        if (isTouchDevice) return;
+
         const cursor = cursorRef.current;
         const follower = followerRef.current;
 
@@ -65,9 +77,10 @@ export default function CustomCursor() {
             window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mouseup', onMouseUp);
         };
-    }, [isHovering]);
+    }, [isHovering, isTouchDevice]);
 
     useEffect(() => {
+        if (isTouchDevice) return;
         const follower = followerRef.current;
         if (isHovering) {
             gsap.to(follower, {
@@ -88,7 +101,9 @@ export default function CustomCursor() {
                 duration: 0.2
             });
         }
-    }, [isHovering]);
+    }, [isHovering, isTouchDevice]);
+
+    if (isTouchDevice) return null;
 
     return (
         <>
