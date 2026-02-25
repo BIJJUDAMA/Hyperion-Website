@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Linkedin, Instagram, Copy, Check } from 'lucide-react';
 import { contactData } from '../data/contact';
 import { useTheme } from '../components/ThemeProvider';
 
@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Contact() {
   const { title, description, email, socials } = contactData;
   const { isDark } = useTheme();
+  const [copied, setCopied] = useState(false);
   const hyperionLogo = isDark ? '/images/hyperion_light.png' : '/images/hyperion_dark.png';
   const sectionRef = useRef<HTMLDivElement>(null);
   const brandingRef = useRef<HTMLDivElement>(null);
@@ -184,9 +185,22 @@ export default function Contact() {
             <Mail className="w-4 h-4" />
             Email Us
           </button>
-          <p className="font-mono text-sm text-brutal-muted mb-10">
-            {email}
-          </p>
+          <div className="flex items-center justify-center gap-2 mb-10">
+            <p className="font-mono text-sm text-brutal-muted">
+              {email}
+            </p>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(email);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="text-brutal-muted hover:text-brutal-accent transition-colors p-1"
+              title="Copy email"
+            >
+              {copied ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
 
         <div ref={socialsRef} className="flex items-center justify-center gap-6">
