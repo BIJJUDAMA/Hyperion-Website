@@ -65,16 +65,7 @@ export default function Contact() {
         0.4
       );
 
-      // After whoosh completes, start floating levitation pulse on Hyperion logo
-      whooshTl.call(() => {
-        gsap.to(hyperionLogoRef.current, {
-          y: -8,
-          duration: 2,
-          ease: 'sine.inOut',
-          yoyo: true,
-          repeat: -1,
-        });
-      });
+
 
       // Title
       gsap.fromTo(titleRef.current,
@@ -130,14 +121,14 @@ export default function Contact() {
       <div className="relative z-10 max-w-[900px] mx-auto px-6 lg:px-8 text-center">
         {/* Branding: Hyperion AT Amrita */}
         <div ref={brandingRef} className="flex flex-col items-center gap-6 mb-16" style={{ opacity: 0 }}>
-          <div className="flex items-center gap-4 md:gap-6 justify-center flex-nowrap">
+          <div className="flex flex-col items-center gap-4 md:gap-6 justify-center">
             <img
               ref={hyperionLogoRef}
               src={hyperionLogo}
               alt="Hyperion"
               loading="lazy"
               decoding="async"
-              className="w-[clamp(120px,22vw,260px)] h-auto object-contain shrink-0"
+              className="w-[clamp(210px,36vw,420px)] md:w-[clamp(250px,45vw,520px)] h-auto object-contain shrink-0 -ml-3 md:-ml-6"
               style={{ opacity: 0 }}
             />
             <span
@@ -153,7 +144,7 @@ export default function Contact() {
               alt="Amrita Vishwa Vidyapeetham"
               loading="lazy"
               decoding="async"
-              className="w-[clamp(140px,28vw,320px)] h-auto object-contain shrink-0"
+              className="w-[clamp(180px,32vw,360px)] md:w-[clamp(220px,38vw,420px)] h-auto object-contain shrink-0"
               style={{ opacity: 0 }}
             />
           </div>
