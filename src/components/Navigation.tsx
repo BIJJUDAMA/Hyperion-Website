@@ -62,7 +62,7 @@ export default function Navigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <div className="max-w-[1400px] mx-auto px-6 h-32 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 h-32 flex items-center">
           {/* Logo */}
           <div
             className="flex items-center gap-4 cursor-pointer group relative h-10 w-32"
@@ -89,12 +89,12 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden xl:flex items-center flex-1 justify-end max-[1350px]:justify-center gap-8 max-[1350px]:gap-4">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.target)}
-                className="font-mono text-sm uppercase tracking-[0.15em] text-brutal-fg
+                className="font-mono text-sm max-[1350px]:text-[13px] uppercase tracking-[0.15em] max-[1350px]:tracking-wider text-brutal-fg
                            hover:text-brutal-accent transition-all duration-200 relative group"
               >
                 {item.label}
@@ -112,22 +112,22 @@ export default function Navigation() {
             ))}
 
             {/* Socials & Dev */}
-            <div className="h-8 w-[1px] bg-brutal-border/30 mx-2" />
+            <div className="h-8 w-[1px] bg-brutal-border/30 mx-2 max-[1350px]:mx-1" />
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-[1350px]:gap-2">
               <a href={contactData.socials[0].url} target="_blank" rel="noopener noreferrer" className="text-brutal-muted hover:text-brutal-accent transition-colors">
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5 max-[1350px]:w-4 max-[1350px]:h-4" />
               </a>
               <a href={contactData.socials[1].url} target="_blank" rel="noopener noreferrer" className="text-brutal-muted hover:text-brutal-accent transition-colors">
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5 max-[1350px]:w-4 max-[1350px]:h-4" />
               </a>
             </div>
 
             {/* Developer Dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] text-brutal-muted group-hover:text-brutal-accent transition-colors uppercase border border-brutal-border/50 px-3 py-1.5 hover:border-brutal-accent">
+              <button className="flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] text-brutal-muted group-hover:text-brutal-accent transition-colors uppercase border border-brutal-border/50 px-3 py-1.5 max-[1350px]:px-2 max-[1350px]:py-1.5 hover:border-brutal-accent">
                 <Code className="w-3 h-3" />
-                <span>DEV</span>
+                <span className="max-[1350px]:hidden">DEV</span>
               </button>
 
               <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -138,18 +138,29 @@ export default function Navigation() {
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <a
-                      href="https://nitansh.netlify.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors group/link"
-                    >
-                      <Globe className="w-4 h-4 text-brutal-muted group-hover/link:text-brutal-accent" />
-                      <div className="flex flex-col">
-                        <span className="font-mono text-[10px] text-brutal-muted uppercase">My Personal Site</span>
-                        <span className="font-mono text-xs">nitansh.netlify.app</span>
-                      </div>
-                    </a>
+                    <div className="flex items-center justify-between group/link-container">
+                      <a
+                        href="https://nitansh.is-a.dev/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors group/link"
+                      >
+                        <Globe className="w-4 h-4 text-brutal-muted group-hover/link:text-brutal-accent" />
+                        <div className="flex flex-col">
+                          <span className="font-mono text-[10px] text-brutal-muted uppercase">My Personal Site</span>
+                          <span className="font-mono text-xs">nitansh.is-a.dev</span>
+                        </div>
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/in/shankarnitansh/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brutal-muted hover:text-[#0A66C2] transition-colors p-2"
+                        title="LinkedIn"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                      </a>
+                    </div>
 
                     <a
                       href="mailto:shankarnitansh@gmail.com"
@@ -183,14 +194,14 @@ export default function Navigation() {
 
             <button
               onClick={() => scrollToSection('contact')}
-              className="brutal-btn text-[10px] py-2 px-4"
+              className="brutal-btn text-[10px] max-[1350px]:text-[9px] py-2 px-4 max-[1350px]:py-1 max-[1350px]:px-3"
             >
               Join Us
             </button>
           </div>
 
           {/* Mobile */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="xl:hidden flex items-center gap-3 ml-auto">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -277,17 +288,28 @@ export default function Navigation() {
                     <div className="mt-3 p-4 text-center" style={{ border: '1px solid var(--brutal-border)' }}>
                       <p className="font-mono text-[9px] text-brutal-muted/60 uppercase tracking-widest mb-1">Designed & Developed by</p>
                       <p className="font-mono text-sm text-brutal-fg font-bold mb-3">Nitansh Shankar</p>
-                      <div className="flex flex-col gap-3">
-                        <a href="https://nitansh.netlify.app/" target="_blank" rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors mx-auto">
-                          <Globe className="w-4 h-4 text-brutal-muted/50" />
-                          <div className="flex flex-col text-left">
-                            <span className="font-mono text-[9px] text-brutal-muted/60 uppercase">My Personal Site</span>
-                            <span className="font-mono text-xs">nitansh.netlify.app</span>
-                          </div>
-                        </a>
+                      <div className="flex flex-col gap-4 w-max mx-auto items-start">
+                        <div className="flex items-center gap-4 w-full justify-between group/link-container">
+                          <a href="https://nitansh.is-a.dev/" target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors">
+                            <Globe className="w-4 h-4 text-brutal-muted/50 group-hover/link:text-brutal-accent" />
+                            <div className="flex flex-col text-left">
+                              <span className="font-mono text-[9px] text-brutal-muted/60 uppercase">My Personal Site</span>
+                              <span className="font-mono text-xs">nitansh.is-a.dev</span>
+                            </div>
+                          </a>
+                          <a 
+                            href="https://www.linkedin.com/in/shankarnitansh/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-brutal-muted/60 hover:text-[#0A66C2] transition-colors" 
+                            title="LinkedIn"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                          </a>
+                        </div>
                         <a href="mailto:shankarnitansh@gmail.com"
-                          className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors mx-auto">
+                          className="flex items-center gap-3 text-brutal-fg hover:text-brutal-accent transition-colors">
                           <Mail className="w-4 h-4 text-brutal-muted/50" />
                           <div className="flex flex-col text-left">
                             <span className="font-mono text-[9px] text-brutal-muted/60 uppercase">My Email</span>
@@ -301,7 +323,7 @@ export default function Navigation() {
                             setDevCopied(true);
                             setTimeout(() => setDevCopied(false), 2000);
                           }}
-                          className="flex items-center gap-2 font-mono text-[9px] text-brutal-muted/60 hover:text-brutal-accent transition-colors mx-auto uppercase tracking-wide"
+                          className="flex items-center gap-2 font-mono text-[9px] text-brutal-muted/60 hover:text-brutal-accent transition-colors uppercase tracking-wide mt-1 mx-auto"
                         >
                           {devCopied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                           {devCopied ? 'Copied!' : 'Copy Email'}
