@@ -74,7 +74,7 @@ export default function Hero({ startAnimation = false }: HeroProps) {
             loading="eager"
             decoding="async"
             fetchPriority="high"
-            className="w-[clamp(300px,55vw,750px)] h-auto object-contain relative z-10 drop-shadow-lg"
+            className="w-[clamp(300px,55vw,750px)] h-auto object-contain relative z-10 drop-shadow-lg -ml-3 md:-ml-6"
           />
         </div>
 
